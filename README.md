@@ -3,6 +3,7 @@
 
 
 ## Description
+Consul CLI for backup/restoring consul kvs. Can migrate full kvs or a specific folder from one consul instance to another with one command. Generated using [gcli](https://github.com/tcnksm/gcli).
 
 ## Usage
 
@@ -11,12 +12,12 @@
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/Kyle Leach/consul-kv
+$ go get -d github.com/tehleach/consul-kv
 ```
 
 ## Contribution
 
-1. Fork ([https://github.com/Kyle Leach/consul-kv/fork](https://github.com/Kyle Leach/consul-kv/fork))
+1. Fork ([https://github.com/tehleach/consul-kv/fork](https://github.com/tehleach/consul-kv/fork))
 1. Create a feature branch
 1. Commit your changes
 1. Rebase your local changes against the master branch
@@ -26,4 +27,4 @@ $ go get -d github.com/Kyle Leach/consul-kv
 
 ## Author
 
-[Kyle Leach](https://github.com/Kyle Leach)
+[Kyle Leach](https://github.com/tehleach)
