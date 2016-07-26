@@ -34,7 +34,7 @@ func CmdRestore(c *cli.Context) error {
 	//grab src kvs
 	var kvs consul.KVPairs
 	if srcFile != "" {
-		kvs, err = readJSON(srcFile)
+		kvs, err = readJSON(srcFile, path)
 		if err != nil {
 			return err
 		}
@@ -43,10 +43,28 @@ func CmdRestore(c *cli.Context) error {
 		if err != nil {
 			return err
 		}
-		kvs, _, err = srcKV.List("/", nil)
+		kvs, _, err = srcKV.List(fmt.Sprintf("/%v", path), nil)
 		if err != nil {
 			return err
 		}
+	}
+
+	fmt.Println("Keys to restore:")
+	for _, val := range kvs {
+		fmt.Println(val.Key)
+	}
+	var response string
+	fmt.Printf("Restore above keys to %v (y/n)? ", destHost)
+	for {
+		fmt.Scanln(&response)
+		if response == "y" || response == "n" {
+			if response == "n" {
+				fmt.Println("Will not restore. Exiting...")
+				return nil
+			}
+			break
+		}
+		fmt.Println("Please enter y or n.")
 	}
 
 	//set dest kvs

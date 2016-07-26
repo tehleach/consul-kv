@@ -3,6 +3,8 @@ package command
 import (
 	"encoding/json"
 	"io/ioutil"
+	"os"
+	"strings"
 
 	consul "github.com/hashicorp/consul/api"
 )
@@ -23,7 +25,7 @@ func getKVClient(ipaddress string) (*consul.KV, error) {
 	return client.KV(), nil
 }
 
-func readJSON(filename string) (consul.KVPairs, error) {
+func readJSON(filename string, prefix string) (consul.KVPairs, error) {
 	data, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -37,7 +39,32 @@ func readJSON(filename string) (consul.KVPairs, error) {
 
 	var kvs consul.KVPairs
 	for key, value := range inpairs {
-		kvs = append(kvs, &consul.KVPair{Key: key, Value: []byte(value)})
+		if prefix == "" || strings.HasPrefix(key, prefix) {
+			kvs = append(kvs, &consul.KVPair{Key: key, Value: []byte(value)})
+		}
 	}
 	return kvs, nil
+}
+
+func saveKVsToFile(fullKVs consul.KVPairs, fileName string) error {
+	kvs := map[string]string{}
+	for _, element := range fullKVs {
+		kvs[element.Key] = string(element.Value)
+	}
+
+	data, err := json.MarshalIndent(kvs, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Create(fileName)
+	if err != nil {
+		return err
+	}
+
+	if _, err := file.Write([]byte(data)[:]); err != nil {
+		return err
+	}
+
+	return nil
 }
