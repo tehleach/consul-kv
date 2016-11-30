@@ -26,7 +26,7 @@ func CmdSet(c *cli.Context) error {
 	}
 
 	if _, err = destKV.Put(&consul.KVPair{Key: key, Value: []byte(value)}, nil); err != nil {
-		fmt.Printf("Error setting key: %v", err)
+		return fmt.Errorf("Error setting key: %v", err)
 	}
 
 	return nil
