@@ -43,6 +43,8 @@ To install, use `go get`:
 $ go get -d github.com/tehleach/consul-kv
 ```
 
+Alternatively, if you don't have golang set up on your machine, you can just use the binary in the `release` directory. Make sure to use the correct one for your OS.
+
 ## Testing
 
 ```bash
