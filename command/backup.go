@@ -3,7 +3,7 @@ package command
 import (
 	"fmt"
 
-	"github.com/codegangsta/cli"
+	"gopkg.in/urfave/cli.v1"
 )
 
 //CmdBackup backs up consul kv's to a local file
