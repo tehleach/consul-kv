@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/codegangsta/cli"
 	consul "github.com/hashicorp/consul/api"
+	"gopkg.in/urfave/cli.v1"
 )
 
 //CmdRestore restores values to consul kv
@@ -14,7 +14,7 @@ func CmdRestore(c *cli.Context) error {
 	//get flags
 	destHost := c.String("t")
 	srcHost := c.String("f")
-	srcFile := c.String("s")
+	srcFile := c.String("n")
 	path := c.String("p")
 
 	//check flags

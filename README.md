@@ -1,11 +1,39 @@
 # consul-kv
 
-
-
-## Description
-Consul CLI for backup/restoring consul kvs. Can migrate full kvs or a specific folder from one consul instance to another with one command. Generated using [gcli](https://github.com/tcnksm/gcli).
+Backup, restore, and set kvs from consul.
 
 ## Usage
+
+### `consul-kv set <consul address> <key> <value>`
+
+Set key to value at given consul address.
+
+### `consul-kv backup`
+
+Backup kvs from consul.
+
+#### Options
+
+* `--from <value>, -f <value>` (default 'localhost:8500') - consul address to retrieve keys from.
+* `--name <value>, -n <value>` (default 'data.json') - filename to save kvs to.
+* `--prefix <value>, -p <value>` - prefix to pull keys with. If not supplied, gets all keys.
+
+### `consul-kv restore`
+
+Restore kvs to consul, from either JSON or a different consul.
+
+#### Options
+
+* `--from <value>, -f <value>` (default 'localhost:8500') - consul address to retrieve keys from.
+* `--name <value>, -n <value>` (default 'data.json') - filename to retrieve keys from. Takes priority over --from.
+* `--to <value>, -t <value>` (default 'localhost:8500') - filename to restore keys to.
+* `--prefix <value>, -p <value>` - prefix to restore keys with. If not supplied, restores all keys.
+
+restore keys
+
+## Dependencies
+
+[Golang 1.7](https://golang.org/dl/)
 
 ## Install
 
@@ -15,15 +43,11 @@ To install, use `go get`:
 $ go get -d github.com/tehleach/consul-kv
 ```
 
-## Contribution
+## Testing
 
-1. Fork ([https://github.com/tehleach/consul-kv/fork](https://github.com/tehleach/consul-kv/fork))
-1. Create a feature branch
-1. Commit your changes
-1. Rebase your local changes against the master branch
-1. Run test suite with the `go test ./...` command and confirm that it passes
-1. Run `gofmt -s`
-1. Create a new Pull Request
+```bash
+$ go test ./...
+```
 
 ## Author
 

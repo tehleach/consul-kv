@@ -4,20 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/codegangsta/cli"
+	"gopkg.in/urfave/cli.v1"
 )
 
 func main() {
 
 	app := cli.NewApp()
-	app.Name = Name
-	app.Version = Version
 	app.Author = "Kyle Leach"
 	app.Email = ""
 	app.Usage = ""
 
-	app.Commands = Commands
-	app.CommandNotFound = CommandNotFound
+	app.Commands = commands
+	app.CommandNotFound = commandNotFound
 
 	err := app.Run(os.Args)
 	if err != nil {
