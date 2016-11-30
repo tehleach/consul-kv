@@ -12,9 +12,14 @@ import (
 const (
 	localConsulURL  = "127.0.0.1:8500"
 	defaultFileName = "data.json"
+	http            = "http://"
+	https           = "https://"
 )
 
 func getKVClient(ipaddress string) (*consul.KV, error) {
+	ipaddress = strings.TrimPrefix(ipaddress, http)
+	ipaddress = strings.TrimPrefix(ipaddress, https)
+
 	config := consul.DefaultConfig()
 	config.Address = ipaddress
 
